@@ -1,0 +1,83 @@
+#!/usr/bin/env zsh
+
+entry () {
+    case $1 in
+        en)
+            encrypt ${@:2}
+            ;;
+        de)
+            decrypt ${@:2}
+            ;;
+        -h)
+            help
+            ;;
+        "")
+            help
+            ;;
+        *)
+            unknown $1
+            ;;
+    esac
+}
+
+encrypt () {
+    case $1 in
+        c)
+            ceaser_encrypt ${@:2}
+            ;;
+        v)
+            vignere_encrypt ${@:2}
+            ;;
+        -h)
+            help
+            ;;
+        *)
+            unknown $1
+            ;;
+    esac
+}
+
+ceaser_encrypt () {
+    echo $@
+}
+
+vignere_encrypt () {
+    echo $@
+}
+
+decrypt () {
+    case $1 in
+        c)
+            ceaser_decrypt ${@:2}
+            ;;
+        v)
+            vignere_decrypt ${@:2}
+            ;;
+        -h)
+            help
+            ;;
+        *)
+            unknown $1
+            ;;
+    esac
+}
+
+ceaser_decrypt () {
+    echo $@
+}
+
+vignere_decrypt () {
+    echo $@
+}
+
+help () {
+    echo "Usage: encrydec [encrypt | decrypt] [cipher] [file | text] [input] [output]\nOptions and arguments:\nen   : Encrypt\nde   : Decrypt\nc    : Caesarian Shift\nv    : Vigenere Cipher\n-f   : Pass file to be encrypted as argument\n-t   : Pass text to be encrypted as argument\n-h   : Help"
+}
+
+unknown () {
+    echo "unknown parameter \"$1\", for help see \"encrydec -h\""
+}
+
+# Call function to entry
+
+entry $@
