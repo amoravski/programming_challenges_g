@@ -20,6 +20,8 @@ entry () {
     esac
 }
 
+# Encrypt path
+
 encrypt () {
     case $1 in
         c)
@@ -38,12 +40,26 @@ encrypt () {
 }
 
 ceaser_encrypt () {
-    echo $@
+    text=$(get_input $@)
+    text_encrypted=$(ceaser_encrypt_algorithm $text)
+    output $text_encrypted ${@:3}
 }
 
-vignere_encrypt () {
-    echo $@
+ceaser_encrypt_algorithm () {
+    echo $1 | tr '[A-Za-z]' '[X-ZA-Wx-za-w]'
 }
+
+
+vignere_encrypt () {
+    text=$(get_input $@)
+    text_encrypted=$(ceaser_encrypt_algorithm $text)
+    output $text_encrypted ${@:3}
+}
+
+vignere_algorithm () {
+}
+
+# Decrypt path
 
 decrypt () {
     case $1 in
@@ -63,15 +79,57 @@ decrypt () {
 }
 
 ceaser_decrypt () {
-    echo $@
+    text=$(get_input $@)
+    text_encrypted=$(ceaser_decrypt_algorithm $text)
+    output $text_encrypted ${@:3}
+}
+
+ceaser_decrypt_algorithm () {
+    echo $1 | tr '[X-ZA-Wx-za-w]' '[A-Za-z]'
 }
 
 vignere_decrypt () {
-    echo $@
+    text=$(get_input $@)
+    output $text ${@:3}
 }
 
+# General functions
+
+get_input () {
+    case $1 in
+        -f)
+            text=$(cat "$2")
+            ;;
+        -t)
+            text="$2"
+            ;;
+        *)
+            unknown $1
+            ;;
+    esac
+    echo $text
+}
+
+output () {
+    if [ "$2" = "-o" ]; then
+        echo $1 > $3
+    else
+        echo $1
+    fi
+}
+
+
 help () {
-    echo "Usage: encrydec [encrypt | decrypt] [cipher] [file | text] [input] [output]\nOptions and arguments:\nen   : Encrypt\nde   : Decrypt\nc    : Caesarian Shift\nv    : Vigenere Cipher\n-f   : Pass file to be encrypted as argument\n-t   : Pass text to be encrypted as argument\n-h   : Help"
+    echo "Usage: encrydec [encrypt | decrypt] [cipher] [file | text] [output]
+Options and arguments:
+en   : Encrypt
+de   : Decrypt
+c    : Ceasarian Shift
+v    : Vigenere Cipher
+-f   : Pass file to be encrypted as argument
+-t   : Pass text to be encrypted as argument
+-o   : Specify output file, outputs to stdout if not specified
+-h   : Help"
 }
 
 unknown () {
@@ -79,5 +137,4 @@ unknown () {
 }
 
 # Call function to entry
-
 entry $@
