@@ -1,4 +1,5 @@
 #include<iostream>
+template <class T>
 class Queue {
     private:
         int max_size;
@@ -16,19 +17,22 @@ class Queue {
         bool empty();
 };
 
-Queue::Queue() {
+template <class T>
+Queue<T>::Queue() {
     max_size=10;
     current_size=0;
     data = new int[max_size];
     return;
 }
 
-Queue::~Queue() {
+template <class T>
+Queue<T>::~Queue() {
     delete[] data;
     return;
 }
 
-void Queue::push_back(int el) {
+template <class T>
+void Queue<T>::push_back(int el) {
     if(current_size+1 > max_size - 5) {
         extra_thicc();
     }
@@ -37,7 +41,8 @@ void Queue::push_back(int el) {
     return;
 }
 
-void Queue::pop_front() {
+template <class T>
+void Queue<T>::pop_front() {
     if(current_size-1 < max_size - 10) {
         less_thicc();
     }
@@ -48,7 +53,8 @@ void Queue::pop_front() {
     return;
 }
 
-void Queue::extra_thicc() {
+template <class T>
+void Queue<T>::extra_thicc() {
     max_size = max_size + 5;
     int* new_data = new int[max_size];
     for(int i=0; i<current_size; i++) {
@@ -59,7 +65,8 @@ void Queue::extra_thicc() {
     return;
 }
 
-void Queue::less_thicc() {
+template <class T>
+void Queue<T>::less_thicc() {
     max_size = max_size - 5;
     int* new_data = new int[max_size];
     for(int i=0; i<current_size; i++) {
@@ -70,15 +77,18 @@ void Queue::less_thicc() {
     return;
 }
 
-int Queue::length() {
+template <class T>
+int Queue<T>::length() {
     return current_size;
 }
 
-int Queue::front() {
+template <class T>
+int Queue<T>::front() {
     return data[0];
 }
 
-bool Queue::empty() {
+template <class T>
+bool Queue<T>::empty() {
     if(current_size==0) {
         return true;
     }
@@ -87,7 +97,7 @@ bool Queue::empty() {
 
 int main(int argc, char const* argv[])
 {
-    Queue st = Queue();
+    Queue<int> st = Queue<int>();
     st.push_back(1);
     st.push_back(2);
     st.push_back(3);

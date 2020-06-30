@@ -1,4 +1,5 @@
 #include<iostream>
+template <class T>
 class Stack {
     private:
         int max_size;
@@ -15,19 +16,22 @@ class Stack {
         bool empty();
 };
 
-Stack::Stack() {
+template <class T>
+Stack<T>::Stack() {
     max_size=10;
     current_size=0;
     data = new int[max_size];
     return;
 }
 
-Stack::~Stack() {
+template <class T>
+Stack<T>::~Stack() {
     delete[] data;
     return;
 }
 
-void Stack::push_top(int el) {
+template <class T>
+void Stack<T>::push_top(int el) {
     if(current_size+1 > max_size - 5) {
         extra_thicc();
     }
@@ -36,7 +40,8 @@ void Stack::push_top(int el) {
     return;
 }
 
-int Stack::pop_top() {
+template <class T>
+int Stack<T>::pop_top() {
     if(current_size-1 < max_size - 10) {
         less_thicc();
     }
@@ -44,7 +49,8 @@ int Stack::pop_top() {
     return data[current_size];
 }
 
-void Stack::extra_thicc() {
+template <class T>
+void Stack<T>::extra_thicc() {
     max_size = max_size + 5;
     int* new_data = new int[max_size];
     for(int i=0; i<current_size; i++) {
@@ -55,7 +61,8 @@ void Stack::extra_thicc() {
     return;
 }
 
-void Stack::less_thicc() {
+template <class T>
+void Stack<T>::less_thicc() {
     max_size = max_size - 5;
     int* new_data = new int[max_size];
     for(int i=0; i<current_size; i++) {
@@ -66,11 +73,13 @@ void Stack::less_thicc() {
     return;
 }
 
-int Stack::length() {
+template <class T>
+int Stack<T>::length() {
     return current_size;
 }
 
-bool Stack::empty() {
+template <class T>
+bool Stack<T>::empty() {
     if(current_size==0) {
         return true;
     }
@@ -79,7 +88,7 @@ bool Stack::empty() {
 
 int main(int argc, char const* argv[])
 {
-    Stack st = Stack();
+    Stack<int> st = Stack<int>();
     st.push_top(1);
     st.push_top(2);
     st.push_top(3);

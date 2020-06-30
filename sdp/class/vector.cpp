@@ -1,9 +1,11 @@
 #include<iostream>
+
+template <class T>
 class Vector {
     private:
         int max_size;
         int current_size;
-        int *data;
+        T *data;
         void extra_thicc();
         void less_thicc();
     public:
@@ -13,24 +15,27 @@ class Vector {
         void erase(int);
         int operator[](int);
         int length();
-        int* begin();
-        int* end();
+        T* begin();
+        T* end();
         bool empty();
 };
 
-Vector::Vector() {
+template <class T>
+Vector<T>::Vector() {
     max_size=10;
     current_size=0;
     data = new int[max_size];
     return;
 }
 
-Vector::~Vector() {
+template <class T>
+Vector<T>::~Vector() {
     delete[] data;
     return;
 }
 
-void Vector::insert(int index, int el) {
+template <class T>
+void Vector<T>::insert(int index, int el) {
     if(current_size + 1 > max_size - 5) {
         extra_thicc();
     }
@@ -42,7 +47,8 @@ void Vector::insert(int index, int el) {
     return;
 }
 
-void Vector::erase(int index) {
+template <class T>
+void Vector<T>::erase(int index) {
     if(current_size-1 < max_size - 10) {
         less_thicc();
     }
@@ -53,11 +59,13 @@ void Vector::erase(int index) {
     return;
 }
 
-int Vector::operator[](int index) {
+template <class T>
+int Vector<T>::operator[](int index) {
     return data[index];
 }
 
-void Vector::extra_thicc() {
+template <class T>
+void Vector<T>::extra_thicc() {
     max_size = max_size + 5;
     int* new_data = new int[max_size];
     for(int i=0; i<current_size; i++) {
@@ -68,7 +76,8 @@ void Vector::extra_thicc() {
     return;
 }
 
-void Vector::less_thicc() {
+template <class T>
+void Vector<T>::less_thicc() {
     max_size = max_size - 5;
     int* new_data = new int[max_size];
     for(int i=0; i<current_size; i++) {
@@ -79,19 +88,23 @@ void Vector::less_thicc() {
     return;
 }
 
-int Vector::length() {
+template <class T>
+int Vector<T>::length() {
     return current_size;
 }
 
-int* Vector::begin() {
+template <class T>
+T* Vector<T>::begin() {
     return data;
 }
 
-int* Vector::end() {
+template <class T>
+T* Vector<T>::end() {
     return data + length();
 }
 
-bool Vector::empty() {
+template <class T>
+bool Vector<T>::empty() {
     if(current_size==0) {
         return true;
     }
@@ -100,7 +113,7 @@ bool Vector::empty() {
 
 int main(int argc, char const* argv[])
 {
-    Vector st = Vector();
+    Vector<int> st = Vector<int>();
     st.insert(0,1);
     st.insert(0,2);
     st.insert(0,3);
