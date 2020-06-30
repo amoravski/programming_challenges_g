@@ -4,15 +4,15 @@ class Queue {
     private:
         int max_size;
         int current_size;
-        int *data;
+        T *data;
         void extra_thicc();
         void less_thicc();
     public:
         Queue();
         ~Queue();
-        void push_back(int);
+        void push_back(T);
         void pop_front();
-        int front();
+        T front();
         int length();
         bool empty();
 };
@@ -21,7 +21,7 @@ template <class T>
 Queue<T>::Queue() {
     max_size=10;
     current_size=0;
-    data = new int[max_size];
+    data = new T[max_size];
     return;
 }
 
@@ -32,7 +32,7 @@ Queue<T>::~Queue() {
 }
 
 template <class T>
-void Queue<T>::push_back(int el) {
+void Queue<T>::push_back(T el) {
     if(current_size+1 > max_size - 5) {
         extra_thicc();
     }
@@ -56,7 +56,7 @@ void Queue<T>::pop_front() {
 template <class T>
 void Queue<T>::extra_thicc() {
     max_size = max_size + 5;
-    int* new_data = new int[max_size];
+    T* new_data = new T[max_size];
     for(int i=0; i<current_size; i++) {
         new_data[i]=data[i];
     }
@@ -68,7 +68,7 @@ void Queue<T>::extra_thicc() {
 template <class T>
 void Queue<T>::less_thicc() {
     max_size = max_size - 5;
-    int* new_data = new int[max_size];
+    T* new_data = new T[max_size];
     for(int i=0; i<current_size; i++) {
         new_data[i]=data[i];
     }
@@ -83,7 +83,7 @@ int Queue<T>::length() {
 }
 
 template <class T>
-int Queue<T>::front() {
+T Queue<T>::front() {
     return data[0];
 }
 
@@ -106,9 +106,18 @@ int main(int argc, char const* argv[])
     st.push_back(6);
     st.push_back(7);
     st.push_back(8);
+    Queue<std::string> st2 = Queue<std::string>();
+    st2.push_back("dog");
+    st2.push_back("zod");
+    st2.push_back("god");
     while(!st.empty()) {
         std::cout << st.front();
         st.pop_front();
+        std::cout << '\n';
+    }
+    while(!st2.empty()) {
+        std::cout << st2.front();
+        st2.pop_front();
         std::cout << '\n';
     }
     return 0;

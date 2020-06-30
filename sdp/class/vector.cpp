@@ -11,7 +11,7 @@ class Vector {
     public:
         Vector();
         ~Vector();
-        void insert(int, int);
+        void insert(int, T);
         void erase(int);
         int operator[](int);
         int length();
@@ -24,7 +24,7 @@ template <class T>
 Vector<T>::Vector() {
     max_size=10;
     current_size=0;
-    data = new int[max_size];
+    data = new T[max_size];
     return;
 }
 
@@ -35,7 +35,7 @@ Vector<T>::~Vector() {
 }
 
 template <class T>
-void Vector<T>::insert(int index, int el) {
+void Vector<T>::insert(int index, T el) {
     if(current_size + 1 > max_size - 5) {
         extra_thicc();
     }
@@ -67,7 +67,7 @@ int Vector<T>::operator[](int index) {
 template <class T>
 void Vector<T>::extra_thicc() {
     max_size = max_size + 5;
-    int* new_data = new int[max_size];
+    T* new_data = new T[max_size];
     for(int i=0; i<current_size; i++) {
         new_data[i]=data[i];
     }
@@ -79,7 +79,7 @@ void Vector<T>::extra_thicc() {
 template <class T>
 void Vector<T>::less_thicc() {
     max_size = max_size - 5;
-    int* new_data = new int[max_size];
+    T* new_data = new T[max_size];
     for(int i=0; i<current_size; i++) {
         new_data[i]=data[i];
     }

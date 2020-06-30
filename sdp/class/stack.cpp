@@ -10,8 +10,8 @@ class Stack {
     public:
         Stack();
         ~Stack();
-        void push_top(int);
-        int pop_top();
+        void push_top(T);
+        T pop_top();
         int length();
         bool empty();
 };
@@ -20,7 +20,7 @@ template <class T>
 Stack<T>::Stack() {
     max_size=10;
     current_size=0;
-    data = new int[max_size];
+    data = new T[max_size];
     return;
 }
 
@@ -31,7 +31,7 @@ Stack<T>::~Stack() {
 }
 
 template <class T>
-void Stack<T>::push_top(int el) {
+void Stack<T>::push_top(T el) {
     if(current_size+1 > max_size - 5) {
         extra_thicc();
     }
@@ -41,7 +41,7 @@ void Stack<T>::push_top(int el) {
 }
 
 template <class T>
-int Stack<T>::pop_top() {
+T Stack<T>::pop_top() {
     if(current_size-1 < max_size - 10) {
         less_thicc();
     }
@@ -52,7 +52,7 @@ int Stack<T>::pop_top() {
 template <class T>
 void Stack<T>::extra_thicc() {
     max_size = max_size + 5;
-    int* new_data = new int[max_size];
+    T* new_data = new T[max_size];
     for(int i=0; i<current_size; i++) {
         new_data[i]=data[i];
     }
@@ -64,7 +64,7 @@ void Stack<T>::extra_thicc() {
 template <class T>
 void Stack<T>::less_thicc() {
     max_size = max_size - 5;
-    int* new_data = new int[max_size];
+    T* new_data = new T[max_size];
     for(int i=0; i<current_size; i++) {
         new_data[i]=data[i];
     }
